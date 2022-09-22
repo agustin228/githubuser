@@ -1,5 +1,6 @@
 package com.example.challenge
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
 
         list.addAll(listUsers)
         showRecyclerList()
+
+
     }
 
     private val listUsers : ArrayList<User>
@@ -44,5 +47,14 @@ class MainActivity : AppCompatActivity() {
         rvUser.layoutManager = LinearLayoutManager(this)
         val listProfilAdapter = ListProfileAdapter(list)
         rvUser.adapter = listProfilAdapter
+
+
+        listProfilAdapter.setOnItemClickCallback(object : ListProfileAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: User) {
+                val intentToDetail = Intent(this@MainActivity, DetailActivity::class.java)
+                intentToDetail.putExtra(DetailActivity.EXTRA_USER, data)
+                startActivity(intentToDetail)
+            }
+        })
     }
 }

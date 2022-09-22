@@ -1,5 +1,6 @@
 package com.example.challenge
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ListProfileAdapter(private val listUser: ArrayList<User>) :
     RecyclerView.Adapter<ListProfileAdapter.ListViewHolder>() {
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_profile, parent, false)
         return ListViewHolder(view)
@@ -24,6 +32,7 @@ class ListProfileAdapter(private val listUser: ArrayList<User>) :
         holder.tvRepository.text = repository
         holder.tvFollowing.text = following
         holder.tvFollowers.text = followers
+        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[holder.adapterPosition]) }
 
     }
 
@@ -39,7 +48,10 @@ class ListProfileAdapter(private val listUser: ArrayList<User>) :
         var tvFollowing : TextView = itemView.findViewById(R.id.tv_following)
         var tvFollowers : TextView = itemView.findViewById(R.id.tv_followers)
 
+
     }
 
-
+    interface OnItemClickCallback {
+        fun onItemClicked(data: User)
+    }
     }
