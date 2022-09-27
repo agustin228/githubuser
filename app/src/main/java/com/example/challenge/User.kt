@@ -1,8 +1,7 @@
 package com.example.challenge
 
-import android.location.Location
+
 import android.os.Parcelable
-import android.provider.ContactsContract
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
